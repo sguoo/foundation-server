@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style> 
+    html {
+      background-color: black;
+      color: white
+    }
+  </style>
+</head>
+<body>
+  <h1>Login</h1>
+  <form action="/login" method="post">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" autocomplete = off>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" autocomplete=off>
+    <br>
+    <button type="submit">Login</button>
+
+    <%if @error%>
+    <script>
+      alert("로그인에 실패했습니다. 다시 시도해 주세요.")
+    </script>
+    <% end %>
+  </form>
+</body>
+</html>

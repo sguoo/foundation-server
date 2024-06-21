@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>홈페이지</title>
+</head>
+<body>
+  <% if logged_in? %>
+    <p>안녕하세요, <%= current_user.name %>님!</p>
+  <% else %>
+    <p>Hello, world!</p>
+  <% end %>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>사용자 목록</title>
+</head>
+<body>
+  <h1>사용자 목록</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>이름</th>
+      <th>이메일</th>
+      <th>동작</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td>
+          <form action="/users/<%= user.id %>" method="POST" style="display:inline;">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="삭제">
+          </form>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</body>
+</html>
