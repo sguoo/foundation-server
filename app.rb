@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'bcrypt'
+require 'json'
 
 enable :sessions
 
@@ -124,6 +125,13 @@ delete '/users/:id' do
   else
     "사용자 삭제 중 오류가 발생했습니다."
   end
+end
+
+get '/users/json/:name' do
+    content_type :json
+    name = params[:name]
+    users= User.where(name: name)
+    users.to_json
 end
 
 get '/users/name/:name' do
