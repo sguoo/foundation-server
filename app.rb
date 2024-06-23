@@ -6,6 +6,7 @@ require 'json'
 enable :sessions
 
 set :bind, '0.0.0.0'
+set :port, 25565
 
 set :database, {adapter: "sqlite3", database: "db/development.sqlite3"}
 
