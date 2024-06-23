@@ -66,7 +66,7 @@ get '/question' do
   data.to_json
 end
 
-get '/:data' do
+get '/api/:data' do
   content_type :json, charset: 'utf-8'
   data = read_json_file("views/#{params[:data]}")
   data.to_json
