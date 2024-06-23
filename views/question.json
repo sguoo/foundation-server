@@ -1,4 +1,4 @@
 {
-    "question" : ["<style>태그가 무슨 역할을 하는가", "CSS는 뭐의 약자일까"],
-    "answer" : ["좋은 역할", "Cascading Style Sheet"]
-  }
+  "question": ["style 태그가 무슨 역할을 하는가", "CSS는 뭐의 약자일까"],
+  "answer": ["좋은 역할", "Cascading Style Sheet"]
+}

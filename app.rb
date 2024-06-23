@@ -55,8 +55,15 @@ before '/users*' do
   end
 end
 
+def read_json_file(file_path)
+    file = File.read(file_path)
+    JSON.parse(file)
+end
+
 get '/question' do
-  json :question
+  content_type :json, charset: 'utf-8'
+  data = read_json_file('views/question.json')
+  data.to_json
 end
 
 get '/' do
