@@ -55,6 +55,10 @@ before '/users*' do
   end
 end
 
+get '/question' do
+  json :question
+end
+
 get '/' do
   erb :index
 end
