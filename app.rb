@@ -24,9 +24,11 @@ Mail.defaults do
 end
 
 class User < ActiveRecord::Base
-  self.primary_key = 'id'  # 기본 키를 명시적으로 설정
+  self.primary_key = 'id'
 
   include BCrypt
+
+  validates :email, presence: true, uniqueness: true
 
   def password
     @password ||= Password.new(password_hash)
@@ -36,6 +38,8 @@ class User < ActiveRecord::Base
     @password = Password.create(new_password)
     self.password_hash = @password
   end
+
+  attr_accessor :token
 end
 
 set :allow_origin, "*"
@@ -99,19 +103,20 @@ get '/users/new' do
 end
 
 post '/users/new' do
-  if User.exists?(name: params[:name]) || User.exists?(email: params[:email])
+  if User.exists?(email: params[:email])
     @error = true
+    @error_message = "이미 사용 중인 이메일입니다."
     erb :new_user
   else
     @user = User.new(id: params[:id], name: params[:name], email: params[:email], password: params[:password])
     @user.token = SecureRandom.hex(10)
-
     if @user.save
+      session[:user_id] = @user.id
       begin
         Mail.deliver do
           to @user.email
-          from 'sgoo@dsm.hs.kr'
-          subject 'Your verification token'
+          from 'sgoo.dsm.hs.kr'
+          subject 'Account verification'
           body "Your verification token is #{@user.token}"
         end
         redirect "/users/token_verification?email=#{@user.email}"
@@ -126,6 +131,7 @@ post '/users/new' do
     end
   end
 end
+
 
 get '/users/token_verification' do
     @user_email = params[:email]
